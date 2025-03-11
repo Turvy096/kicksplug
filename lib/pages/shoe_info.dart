@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kicksplug/resources/shoes_data.dart';
 
 class ShoeInfo extends StatelessWidget {
+  final ShoesController addCart = Get.put(ShoesController());
   final _displayShoe = Get.arguments;
   ShoeInfo({super.key});
 
@@ -9,104 +11,136 @@ class ShoeInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
+      appBar: AppBar(
+        backgroundColor: Colors.grey[300],
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              onTap: ()=> Get.toNamed('/cartscreen'),
+              child: Icon(Icons.shopping_bag_outlined)
+            ),
+          )
+        ],
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 25,
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height*0.5,
-              child: Image.asset(_displayShoe["image"],
-              fit: BoxFit.contain,
-              )
-            ),
-            Text(_displayShoe["description"],
-              style: TextStyle(
-                fontSize: 20, 
-                color: Colors.grey[800]
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        padding: const EdgeInsets.only(
+          bottom: 10.0,
+          left: 8.0,
+          right: 8.0
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.grey.shade50
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*0.5,
+                  child: Image.asset(_displayShoe["image"],
+                  fit: BoxFit.contain,
+                  )
+                ),
                 Text(_displayShoe["name"],
                   style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold
+                    fontSize: 25
                   ),
                 ),
-                Text("\$${_displayShoe["price"].toString()}.00",
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.star, 
+                          color: Colors.amber[700],
+                          size: 18
+                          ),
+                        Icon(Icons.star, 
+                          color: Colors.amber[700],
+                          size: 18
+                          ),
+                        Icon(Icons.star, 
+                          color: Colors.amber[700],
+                          size: 18
+                          ),
+                        Icon(Icons.star, 
+                          color: Colors.amber[700],
+                          size: 18
+                          ),
+                        Icon(Icons.star_half, 
+                          color: Colors.amber[700],
+                          size: 18
+                          ),
+                        Text("(34)",
+                          style: TextStyle(
+                            color: Colors.grey[700]
+                          ),
+                        )
+                      ],
+                    ),
+                    Text("\$${_displayShoe["price"].toString()}.00",
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.grey[700]
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("Description",
                   style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.grey[700]
+                    fontSize: 20
                   ),
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.black87
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(Icons.remove,
-                    color: Colors.white,
-                    ),
-                  )
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Text("Add To Cart".removeAllWhitespace,
-                    style: TextStyle(
-                      fontSize: 17
-                    ),
-                  ),
-                ),
-                 Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.black87
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(Icons.add,
-                    color: Colors.white,
-                    ),
-                  )
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black87
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("View Cart",
+                Text(_displayShoe["description"],
                   style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.white
+                    fontSize: 17, 
+                    color: Colors.grey[800]
                   ),
                 ),
-              )
+                SizedBox(
+                  height: 45,
+                ),
+                GestureDetector(
+                  onTap: (){
+                    addCart.addShoesToCart({
+                      "name" : _displayShoe["name"],
+                      "image" : _displayShoe["image"],
+                      "price" : _displayShoe["price"]
+                    });
+                    Get.snackbar("Success", "Item successfully added to cart",
+                    duration: Duration(milliseconds: 1000),
+                    backgroundColor: Colors.green[300]
+                    );
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey[700]
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Text("Add To Cart",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ]
             )
-          ],
+          ),
         ),
       ),
     );

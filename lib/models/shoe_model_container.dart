@@ -39,10 +39,15 @@ class ShoeModelContainer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Image.asset(image,
-              height: 75
+              height: 120,
+              fit: BoxFit.fill,
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(
+                  left: 8.0,
+                  right: 8.0,
+                  bottom: 8.0
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

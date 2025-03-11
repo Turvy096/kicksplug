@@ -30,14 +30,9 @@ class CartPage extends StatelessWidget {
                   ),
                 ),
               ) :
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: shoeController.cartItems.length,
-                itemBuilder: (context, index){
-                  return Column(
-                    children: [
-                    Padding(
+              Column(
+                children: [
+                  Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Text("My Cart",
                         style: TextStyle(
@@ -46,38 +41,47 @@ class CartPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 2.0
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8)
-                          ),
-                          child: ListTile(
-                            leading: Image.asset(shoeController.cartItems[index]["image"],
-                            width: 50,
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: shoeController.cartItems.length,
+                    itemBuilder: (context, index){
+                      return Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                              vertical: 2.0
                             ),
-                            title: Text(shoeController.cartItems[index]["name"]),
-                            subtitle: Text("\$ ${shoeController.cartItems[index]["price"]}"),
-                            trailing: GestureDetector(
-                              onTap: (){
-                                shoeController.removeShoeFromCart(index);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.delete_rounded,
-                                  color: Colors.grey.shade600,                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8)
+                              ),
+                              child: ListTile(
+                                leading: Image.asset(shoeController.cartItems[index]["image"],
+                                width: 50,
+                                ),
+                                title: Text(shoeController.cartItems[index]["name"]),
+                                subtitle: Text("\$ ${shoeController.cartItems[index]["price"]}"),
+                                trailing: GestureDetector(
+                                  onTap: (){
+                                    shoeController.removeShoeFromCart(index);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Icon(Icons.delete_rounded,
+                                      color: Colors.grey.shade600,                            ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                    ],
-                  );
-                }
+                        ],
+                      );
+                    }
+                  ),
+                ],
               )
             )
           ],

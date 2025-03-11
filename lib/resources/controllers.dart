@@ -19,7 +19,7 @@ class AutoScrollController extends GetxController {
   var currentImagePage = 0.obs;
   final PageController pageController = PageController(viewportFraction: 1.0);
   late Timer _timer;
-  final int totalPages = shoeList.length> 6? 6: shoeList.length; // Set this dynamically if using a list
+  final int totalPages = shoeList.length> 6? 6: shoeList.length;
 
   @override
   void onInit() {

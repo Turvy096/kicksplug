@@ -43,6 +43,7 @@ class ShoeDisplay extends StatelessWidget {
                 mainAxisSpacing: 1.0,
                 crossAxisSpacing: 1,
                 childAspectRatio: 1.0,
+                mainAxisExtent: 250
                 ),
                 itemCount: shoeList.length, 
                 itemBuilder: (context, index){
